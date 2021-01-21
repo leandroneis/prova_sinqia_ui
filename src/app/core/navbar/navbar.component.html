@@ -1,0 +1,24 @@
+<nav class="navbar">
+
+  <div class="container">
+    <div class="p-grid">
+      <div class="p-col-12">
+       <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="pi pi-bars"></i></a>
+       Prova Sinqia
+      </div>
+    </div>
+  </div>
+
+  <ul class="navbar-menu" [hidden]="!exibindoMenu">
+    <li class="navbar-usuario"><i class="fa fa-user-circle-o"></i>{{ auth.jwtPayload?.nome }}</li>
+    
+   
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PARTICIPANTE')">
+      <a routerLink="/participantes"><i class="fa fa-group"></i>Participantes</a>
+    </li>
+    <li class="navbar-menuitem">
+      <a href="javascript:;" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+    </li>
+  </ul>
+
+</nav>

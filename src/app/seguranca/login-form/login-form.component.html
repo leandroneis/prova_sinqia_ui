@@ -1,0 +1,37 @@
+<div class="body">
+
+  <form autocomplete="off" #f="ngForm" class="login-form">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12">
+        <h1>Login</h1>
+      </div>
+
+      <div class="p-col-12 txtb">
+        <input pInputText type="email" 
+          id="usuario" 
+          name="usuario" 
+          placeholder="E-mail" 
+          ngModel 
+          required 
+          #usuario 
+          class=""
+      >
+      </div>
+
+      <div class="p-col-12 txtb">
+        <input pInputText type="password" id="senha" name="senha" placeholder="Senha" ngModel required #senha class="">
+      </div>
+
+
+      <div class="p-col-12">
+        <button pButton type="submit" label="Login" class="logbtn"
+                [disabled]="!f.valid"
+                (click)="login(usuario.value, senha.value); senha.value = '';"></button>
+        <div class="form-group form-check">
+          <a [routerLink]="['/reset-password']">Esqueceu a senha?</a>
+      </div>
+      </div>
+
+    </div>
+  </form>
+</div>

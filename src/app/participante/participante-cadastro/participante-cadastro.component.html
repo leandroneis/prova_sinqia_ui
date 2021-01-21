@@ -1,0 +1,111 @@
+<div class="container">
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h1>{{ editando ? 'Edição do' : 'Novo' }} Participante</h1>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="nomeCompleto" [(ngModel)]="participante.nomeCompleto" #nomeCompleto="ngModel"
+          required minlength="5">
+
+        <app-message [control]="nomeCompleto" error="required" text="Informe o nome completo"></app-message>
+        <app-message [control]="nomeCompleto" error="minlength"
+          text="Mínimo de {{ nomeCompleto.errors?.minlength?.requiredLength }} caracteres"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>CPF</label>
+        <p-inputMask name="cpf" mask="999.999.999-99" [(ngModel)]="participante.cpf" #cpf="ngModel" [disabled] ="!auth.temPermissao('ROLE_ATUALIZAR_PARTICIPANTE_CPF')">
+        </p-inputMask>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Data de Nascimento</label>
+        <p-calendar name="dataNascimento" dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false" [(ngModel)]="participante.dataNascimento"
+         #dataNascimento="ngModel"></p-calendar>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>E-mail</label>
+        <input pInputText type="text" name="email" [(ngModel)]="participante.email" #email="ngModel">
+      </div>
+      
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Telefone</label>
+        <p-inputMask name="telefone" mask="(99)9999-9999" [(ngModel)]="participante.telefone" #telefone="ngModel">
+        </p-inputMask>
+      </div>
+
+      <div class="p-col-12 p-md-6 p-fluid">
+        <label>Senha</label>
+        <input type="password" pPassword [(ngModel)]="participante.senha" name="senha" #senha="ngModel"/>
+      </div>
+
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>CEP</label>
+        <p-inputMask name="cep" mask="99.999-999" [(ngModel)]="participante.endereco.cep"
+          (focusout)="preencherEnderecoCep(cep.value)" #cep="ngModel" required></p-inputMask>
+
+        <app-message [control]="cep" error="required" text="Informe o CEP"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-9 p-fluid">
+        <label>Logradouro</label>
+        <input pInputText type="text" name="logradouro" [(ngModel)]="participante.endereco.logradouro"
+          #logradouro="ngModel" required disabled>
+
+        <app-message [control]="logradouro" error="required" text="Informe o logradouro"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-3 p-fluid">
+        <label>Número</label>
+        <input pInputText type="text" name="numero" [(ngModel)]="participante.endereco.numero" #numero="ngModel"
+          required>
+
+        <app-message [control]="numero" error="required" text="Informe o número"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>Complemento</label>
+        <input pInputText type="text" name="complemento" [(ngModel)]="participante.endereco.complemento">
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>Bairro</label>
+        <input pInputText type="text" name="bairro" [(ngModel)]="participante.endereco.bairro" #bairro="ngModel"
+          required disabled>
+
+        <app-message [control]="bairro" error="required" text="Informe o bairro"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>Cidade</label>
+        <input pInputText type="text" name="localidade" [(ngModel)]="participante.endereco.localidade"
+          #localidade="ngModel" required disabled>
+
+        <app-message [control]="localidade" error="required" text="Informe a localidade"></app-message>
+      </div>
+
+      <div class="p-col-12 p-md-4 p-fluid">
+        <label>UF</label>
+        <input pInputText type="text" name="uf" [(ngModel)]="participante.endereco.uf" #uf="ngModel" required disabled>
+
+        <app-message [control]="uf" error="required" text="Informe o uf"></app-message>
+      </div>
+
+
+      <div class="p-col-12 cadastro-acoes">
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
+        <button pButton type="button" label="Novo" class="p-button-info" (click)="novo(f)"></button>
+
+        <a routerLink="/participantes">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+
+</div>
